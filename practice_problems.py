@@ -13,9 +13,14 @@ Output: False
 """
 
 def has_duplicates(product_ids):
-    # Your implementation here
-    pass
-
+    x=len(product_ids)
+    y=len(set(product_ids))
+    if x==y:
+        return False
+    else:
+        return True
+    
+# A set fits this task because it stores only unique product IDs. Creating a set takes O(n) average time, while comparing the length with the original list takes O(1), which gives us 0(N) time overall.
 
 """
 Problem 2: Order Manager
@@ -30,16 +35,34 @@ task_queue.add_task("Code review")
 task_queue.remove_oldest_task() → "Email follow-up"
 """
 
+class Node:
+    def __init__(self):
+        self.value=None
+        self.next=None
+
 class TaskQueue:
     def __init__(self):
-        # Your initialization here
-        pass
+        self.front=None
+        self.rear=None
 
     def add_task(self, task):
-        pass
-
+        new_node=Node(task)
+        if not self.front:
+            self.front=new_node
+            self.rear=new_node
+        else:
+            self.rear.next=new_node
+            self.rear=new_node
+            
+            
     def remove_oldest_task(self):
-        pass
+        if not self.front:
+            return None
+        removed_node=self.front
+        self.front=self.front.next
+        return removed_node.value
+
+# A queue fits this task as we are dealing with the FIFO structure. The order is important, and also the tasks that are added prior have the priority. It would be resolved in O(1) time.
 
 
 """
@@ -57,10 +80,13 @@ tracker.get_unique_count() → 2
 
 class UniqueTracker:
     def __init__(self):
-        pass
+        self.values=set()
 
     def add(self, value):
-        pass
+        self.values.add(value)
 
     def get_unique_count(self):
-        pass
+        return len(self.values)
+
+#I have chosen to use the set for this problem, as we are dealing with the number of the unique elements, so set will automatically reject the duplicate and we can return the number of unique values by
+# accessing the length of the set implicitly
